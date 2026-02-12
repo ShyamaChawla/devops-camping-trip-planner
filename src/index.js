@@ -9,3 +9,4 @@ root.render(
     <App />
   </React.StrictMode>
 );
+// Practical 3 update
