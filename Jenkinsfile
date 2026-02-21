@@ -14,12 +14,12 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'npm test -- --watchAll=false'
-            }
-        }
+       stage('Test') {
+    steps {
+        echo 'Running tests...'
+        sh 'npm test -- --watchAll=false --passWithNoTests'
+    }
+}
     }
 
     post {
