@@ -1,33 +1,20 @@
-pipeline {
-    agent any
+node {
 
-    tools {
-        nodejs 'NodeJS'
+    tool name: 'NodeJS', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+    env.PATH = "${tool 'NodeJS'}/bin:${env.PATH}"
+
+    stage('Build') {
+        echo 'Building project...'
+        sh 'npm install'
+        sh 'npm run build'
     }
 
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building project...'
-                sh 'npm install'
-                sh 'npm run build'
-            }
-        }
-
-       stage('Test') {
-    steps {
+    stage('Test') {
         echo 'Running tests...'
         sh 'npm test -- --watchAll=false --passWithNoTests'
     }
-}
-    }
 
-    post {
-        success {
-            echo 'Pipeline executed successfully'
-        }
-        failure {
-            echo 'Pipeline failed'
-        }
-    }
+    echo 'Pipeline executed successfully'
 }
+
+
